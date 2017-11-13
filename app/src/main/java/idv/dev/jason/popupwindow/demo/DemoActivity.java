@@ -9,18 +9,24 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import idv.dev.jason.popupwindow.checkbox_list.OnCheckBoxListPopupWindowListener;
 import idv.dev.jason.popupwindow.demo.model.User;
+import idv.dev.jason.popupwindow.demo.popupwindow.UserCheckBoxListPopupWindow;
 import idv.dev.jason.popupwindow.demo.popupwindow.UserTextViewListPopupWindow;
 import idv.dev.jason.popupwindow.textview_list.OnTextViewListPopupWindowListener;
 
-public class DemoActivity extends AppCompatActivity implements View.OnClickListener, OnTextViewListPopupWindowListener {
+public class DemoActivity extends AppCompatActivity implements View.OnClickListener,
+                                                               OnTextViewListPopupWindowListener,
+                                                               OnCheckBoxListPopupWindowListener {
 
     private Button btn1;
+    private Button btn2;
 
     private TextView tv;
 
     private List<User> userList;
-    private UserTextViewListPopupWindow popupWindow;
+    private UserTextViewListPopupWindow textViewListPopupWindow;
+    private UserCheckBoxListPopupWindow checkBoxListPopupWindow;
 
 
     @Override
@@ -31,6 +37,9 @@ public class DemoActivity extends AppCompatActivity implements View.OnClickListe
         btn1 = findViewById(R.id.btn_1);
         btn1.setOnClickListener(this);
 
+        btn2 = findViewById(R.id.btn_2);
+        btn2.setOnClickListener(this);
+
         tv = findViewById(R.id.tv);
     }
 
@@ -39,13 +48,16 @@ public class DemoActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         if (R.id.btn_1 == view.getId())
         {
-            if (null == popupWindow)
+            if (null != userList)
+                userList = null;
+
+            if (null == textViewListPopupWindow)
             {
-                popupWindow = new UserTextViewListPopupWindow(this);
-                popupWindow.setOnTextViewListPopupWindowListener(this);
-                popupWindow.build();
+                textViewListPopupWindow = new UserTextViewListPopupWindow(this);
+                textViewListPopupWindow.setOnTextViewListPopupWindowListener(this);
+                textViewListPopupWindow.build();
             }
-            popupWindow.showAsDropDown(view);
+            textViewListPopupWindow.showAsDropDown(view);
 
             if (null == userList)
             {
@@ -65,7 +77,45 @@ public class DemoActivity extends AppCompatActivity implements View.OnClickListe
                                 for (int i = 0 ; i < 5 ; i++)
                                     userList.add(new User(i, "Name " + i));
 
-                                popupWindow.setDataLoaded(userList);
+                                textViewListPopupWindow.setDataLoaded(userList);
+                            }
+                        });
+                    }
+                }).start();
+            }
+        }
+        else if (R.id.btn_2 == view.getId())
+        {
+            if (null != userList)
+                userList = null;
+
+            if (null == textViewListPopupWindow)
+            {
+                checkBoxListPopupWindow = new UserCheckBoxListPopupWindow(this);
+                checkBoxListPopupWindow.setOnCheckBoxListPopupWindowListener(this);
+                checkBoxListPopupWindow.build();
+            }
+            checkBoxListPopupWindow.showAsDropDown(view);
+
+            if (null == userList)
+            {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        DemoActivity.this.getWindow().getDecorView().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                userList = new ArrayList<>();
+                                for (int i = 0 ; i < 5 ; i++)
+                                    userList.add(new User(i, "Name " + i));
+
+                                checkBoxListPopupWindow.setDataLoaded(userList);
                             }
                         });
                     }
@@ -78,6 +128,15 @@ public class DemoActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onTextViewItemClick(int position) {
         tv.setText("Click " + userList.get(position).toString());
+    }
+
+
+    @Override
+    public void onCheckBoxCheckedChanged() {
+        String checked = "";
+        for (User u : checkBoxListPopupWindow.getCheckedList())
+            checked += u.toString() + '\n';
+        tv.setText(checked);
     }
 
 }

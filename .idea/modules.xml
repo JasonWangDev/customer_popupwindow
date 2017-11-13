@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CustomerPopupWindowDemo.iml" filepath="$PROJECT_DIR$/CustomerPopupWindowDemo.iml" />
+      <module fileurl="file://D:\Project_Android\customer_popupwindow\CustomerPopupWindowDemo.iml" filepath="D:\Project_Android\customer_popupwindow\CustomerPopupWindowDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\Project_Android\customer_popupwindow\app\app.iml" filepath="D:\Project_Android\customer_popupwindow\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/customer_popupwindow.iml" filepath="$PROJECT_DIR$/customer_popupwindow.iml" />
       <module fileurl="file://$PROJECT_DIR$/popupwindow_library/popupwindow_library.iml" filepath="$PROJECT_DIR$/popupwindow_library/popupwindow_library.iml" />
+      <module fileurl="file://D:\Project_Android\customer_popupwindow\popupwindow_library\popupwindow_library.iml" filepath="D:\Project_Android\customer_popupwindow\popupwindow_library\popupwindow_library.iml" />
     </modules>
   </component>
 </project>

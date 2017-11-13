@@ -20,8 +20,8 @@ abstract class TextViewListAdapter<T> extends RecyclerView.Adapter<TextViewListA
 
     //************************************** 抽象方法宣告 ****************************************//
 
-    protected abstract String getItemName(T obj);
-    protected abstract int getItemViewBackgroundResource(int position);
+    abstract String getItemName(T obj);
+    abstract int getItemViewBackgroundResource(int position);
 
 
     //***************************************** 變數宣告 *****************************************//
