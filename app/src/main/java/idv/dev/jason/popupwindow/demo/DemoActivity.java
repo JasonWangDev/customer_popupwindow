@@ -4,12 +4,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import idv.dev.jason.popupwindow.checkbox_list.OnCheckBoxListPopupWindowListener;
 import idv.dev.jason.popupwindow.demo.model.User;
 import idv.dev.jason.popupwindow.demo.popupwindow.UserCheckBoxListPopupWindow;
 import idv.dev.jason.popupwindow.demo.popupwindow.UserTextViewListPopupWindow;
@@ -17,7 +17,7 @@ import idv.dev.jason.popupwindow.textview_list.OnTextViewListPopupWindowListener
 
 public class DemoActivity extends AppCompatActivity implements View.OnClickListener,
                                                                OnTextViewListPopupWindowListener,
-                                                               OnCheckBoxListPopupWindowListener {
+                                                               PopupWindow.OnDismissListener {
 
     private Button btn1;
     private Button btn2;
@@ -92,7 +92,7 @@ public class DemoActivity extends AppCompatActivity implements View.OnClickListe
             if (null == textViewListPopupWindow)
             {
                 checkBoxListPopupWindow = new UserCheckBoxListPopupWindow(this);
-                checkBoxListPopupWindow.setOnCheckBoxListPopupWindowListener(this);
+                checkBoxListPopupWindow.setOnDismissListener(this);
                 checkBoxListPopupWindow.build();
             }
             checkBoxListPopupWindow.showAsDropDown(view);
@@ -115,7 +115,11 @@ public class DemoActivity extends AppCompatActivity implements View.OnClickListe
                                 for (int i = 0 ; i < 5 ; i++)
                                     userList.add(new User(i, "Name " + i));
 
-                                checkBoxListPopupWindow.setDataLoaded(userList);
+                                List<User> checked = new ArrayList<>();
+                                checked.add(userList.get(0));
+                                checked.add(userList.get(3));
+
+                                checkBoxListPopupWindow.setDataLoaded(userList, checked);
                             }
                         });
                     }
@@ -132,7 +136,7 @@ public class DemoActivity extends AppCompatActivity implements View.OnClickListe
 
 
     @Override
-    public void onCheckBoxCheckedChanged() {
+    public void onDismiss() {
         String checked = "";
         for (User u : checkBoxListPopupWindow.getCheckedList())
             checked += u.toString() + '\n';

@@ -20,7 +20,7 @@ import idv.dev.jason.popupwindow.R;
  * Created by jason on 2017/11/9.
  */
 
-public abstract class CheckBoxListPopupWindow<T> implements PopupWindow.OnDismissListener {
+public abstract class CheckBoxListPopupWindow<T> {
 
     protected abstract String getLabelName(T obj);
 
@@ -32,12 +32,12 @@ public abstract class CheckBoxListPopupWindow<T> implements PopupWindow.OnDismis
     private int popupWindowBackgroundColorRes = android.R.color.holo_blue_light;
     private int itemBackgroundRes = 0;
     private RecyclerView.ItemDecoration itemDivider = null;
+    private PopupWindow.OnDismissListener onDismissListener;
 
     private Context context;
 
-    private OnCheckBoxListPopupWindowListener listener;
-
     private List<T> objectList;
+    private List<T> checkedList;
     private CheckBoxListAdapter<T> adapter;
 
     private PopupWindow popupWindow;
@@ -48,13 +48,6 @@ public abstract class CheckBoxListPopupWindow<T> implements PopupWindow.OnDismis
 
     public CheckBoxListPopupWindow(Context context) {
         this.context = context;
-    }
-
-
-    @Override
-    public void onDismiss() {
-        if (null != listener)
-            listener.onCheckBoxCheckedChanged();
     }
 
 
@@ -87,12 +80,17 @@ public abstract class CheckBoxListPopupWindow<T> implements PopupWindow.OnDismis
     }
 
 
+    public void setOnDismissListener(PopupWindow.OnDismissListener onDismissListener) {
+        this.onDismissListener = onDismissListener;
+    }
+
+
     public void build() {
         if (null == popupWindow)
         {
             objectList = new ArrayList<>();
-
-            adapter = new CheckBoxListAdapter<T>(objectList, isSupportAllSelect, isAllRowSingle) {
+            checkedList = new ArrayList<>();
+            adapter = new CheckBoxListAdapter<T>(objectList, checkedList, isSupportAllSelect, isAllRowSingle) {
                 @Override
                 protected String getItemName(T obj) {
                     return getLabelName(obj);
@@ -112,7 +110,7 @@ public abstract class CheckBoxListPopupWindow<T> implements PopupWindow.OnDismis
             popupWindow.setTouchable(true);
             popupWindow.setFocusable(true);
             popupWindow.setOutsideTouchable(true);
-            popupWindow.setOnDismissListener(this);
+            popupWindow.setOnDismissListener(onDismissListener);
         }
     }
 
@@ -128,12 +126,7 @@ public abstract class CheckBoxListPopupWindow<T> implements PopupWindow.OnDismis
     }
 
 
-    public void setOnCheckBoxListPopupWindowListener(OnCheckBoxListPopupWindowListener listener) {
-        this.listener = listener;
-    }
-
-
-    public void setDataLoaded(List<T> objectList) {
+    public void setDataLoaded(List<T> objectList, List<T> checkedList) {
         int oldSize = objectList.size();
         this.objectList.clear();
         adapter.notifyItemRangeRemoved(0, oldSize);
@@ -141,12 +134,16 @@ public abstract class CheckBoxListPopupWindow<T> implements PopupWindow.OnDismis
         this.objectList.addAll(objectList);
         adapter.notifyItemRangeInserted(0, objectList.size());
 
+        this.checkedList.clear();
+        this.checkedList.addAll(checkedList);
+        adapter.notifyItemChanged(0, objectList.size());
+
         viewSwitcher.setDisplayedChild(1);
     }
 
 
     public List<T> getCheckedList() {
-        return adapter.getCheckedList();
+        return checkedList;
     }
 
 

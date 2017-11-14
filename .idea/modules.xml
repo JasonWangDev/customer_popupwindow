@@ -4,10 +4,13 @@
     <modules>
       <module fileurl="file://D:\Project_Android\customer_popupwindow\CustomerPopupWindowDemo.iml" filepath="D:\Project_Android\customer_popupwindow\CustomerPopupWindowDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\Jason_Works\Priavte_Repository\customer_popupwindow\app\app.iml" filepath="D:\Jason_Works\Priavte_Repository\customer_popupwindow\app\app.iml" />
       <module fileurl="file://D:\Project_Android\customer_popupwindow\app\app.iml" filepath="D:\Project_Android\customer_popupwindow\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/customer_popupwindow.iml" filepath="$PROJECT_DIR$/customer_popupwindow.iml" />
+      <module fileurl="file://D:\Jason_Works\Priavte_Repository\customer_popupwindow\customer_popupwindow.iml" filepath="D:\Jason_Works\Priavte_Repository\customer_popupwindow\customer_popupwindow.iml" />
       <module fileurl="file://$PROJECT_DIR$/popupwindow_library/popupwindow_library.iml" filepath="$PROJECT_DIR$/popupwindow_library/popupwindow_library.iml" />
       <module fileurl="file://D:\Project_Android\customer_popupwindow\popupwindow_library\popupwindow_library.iml" filepath="D:\Project_Android\customer_popupwindow\popupwindow_library\popupwindow_library.iml" />
+      <module fileurl="file://D:\Jason_Works\Priavte_Repository\customer_popupwindow\popupwindow_library\popupwindow_library.iml" filepath="D:\Jason_Works\Priavte_Repository\customer_popupwindow\popupwindow_library\popupwindow_library.iml" />
     </modules>
   </component>
 </project>

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import idv.dev.jason.popupwindow.R;
@@ -42,12 +41,12 @@ abstract class CheckBoxListAdapter<T> extends RecyclerView.Adapter<CheckBoxListA
 
     //****************************************** 建構子 ******************************************//
 
-    CheckBoxListAdapter(List<T> objectList, boolean isSupportAllSelect, boolean isAllRowSingle) {
+    CheckBoxListAdapter(List<T> objectList, List<T> checkedList, boolean isSupportAllSelect, boolean isAllRowSingle) {
         this.isSupportAllSelect = isSupportAllSelect;
         this.isAllRowSingle = isAllRowSingle;
 
         this.objectList = objectList;
-        this.checkedList = new ArrayList<>();
+        this.checkedList = checkedList;
     }
 
 
@@ -169,18 +168,6 @@ abstract class CheckBoxListAdapter<T> extends RecyclerView.Adapter<CheckBoxListA
 
             checkBox = itemView.findViewById(R.id.check_box);
         }
-    }
-
-
-    //***************************************** 公用方法 *****************************************//
-
-    /**
-     * 取得已勾選的項目列表
-     *
-     * @return 回傳已勾選的項目列表
-     */
-    public List<T> getCheckedList() {
-        return checkedList;
     }
 
 
